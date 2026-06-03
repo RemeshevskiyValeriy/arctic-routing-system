@@ -1,0 +1,19 @@
+- name: Update package cache
+  apt:
+    update_cache: yes
+
+- name: Install Python
+  apt:
+    name: python3
+    state: present
+
+- name: Install Nginx
+  apt:
+    name: nginx
+    state: present
+
+- name: Start Nginx service
+  service:
+    name: nginx
+    state: started
+    enabled: true

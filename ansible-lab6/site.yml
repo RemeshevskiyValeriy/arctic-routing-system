@@ -1,0 +1,6 @@
+---
+- hosts: arctic_servers
+  become: true
+
+  roles:
+    - arctic_server
