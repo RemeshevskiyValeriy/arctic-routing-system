@@ -4,35 +4,35 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                echo 'Получение исходного кода проекта'
+                echo 'Получение исходного кода'
                 checkout scm
             }
         }
 
         stage('Prepare environment') {
             steps {
-                echo 'Проверка версии Python'
-                bat 'python --version'
-                bat 'python -m pip install --upgrade pip'
-                bat 'pip install pytest'
+                echo 'Создание виртуального окружения'
+                sh 'python3 -m venv venv'
+                sh './venv/bin/python -m pip install --upgrade pip'
+                sh './venv/bin/pip install pytest'
             }
         }
 
         stage('Run tests') {
             steps {
-                echo 'Запуск автоматизированных тестов'
-                bat 'pytest -v'
+                echo 'Запуск pytest'
+                sh './venv/bin/pytest -v'
             }
         }
     }
 
     post {
         success {
-            echo 'CI pipeline успешно выполнен'
+            echo 'Pipeline успешно выполнен'
         }
 
         failure {
-            echo 'CI pipeline завершился с ошибкой'
+            echo 'Pipeline завершился с ошибкой'
         }
     }
 }
